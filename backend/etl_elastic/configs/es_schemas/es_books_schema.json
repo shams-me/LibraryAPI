@@ -1,0 +1,80 @@
+{
+  "settings": {
+    "refresh_interval": "1s",
+    "analysis": {
+      "filter": {
+        "english_stop": {
+          "type": "stop",
+          "stopwords": "_english_"
+        },
+        "english_stemmer": {
+          "type": "stemmer",
+          "language": "english"
+        }
+      },
+      "analyzer": {
+        "standard_analyzer": {
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "english_stop",
+            "english_stemmer"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "keyword"
+      },
+      "title": {
+        "type": "text",
+        "analyzer": "standard_analyzer"
+      },
+      "description": {
+        "type": "text",
+        "analyzer": "standard_analyzer"
+      },
+      "language": {
+        "type": "keyword"
+      },
+      "isbn": {
+        "type": "text"
+      },
+      "publication_date": {
+        "type": "date",
+        "format": "strict_date_optional_time||epoch_millis"
+      },
+      "authors": {
+        "type": "nested",
+        "properties": {
+          "id": {
+            "type": "keyword"
+          },
+          "name": {
+            "type": "text",
+            "analyzer": "standard_analyzer"
+          },
+          "last_name": {
+            "type": "text",
+            "analyzer": "standard_analyzer"
+          }
+        }
+      },
+      "categories": {
+        "type": "nested",
+        "properties": {
+          "id": {
+            "type": "keyword"
+          },
+          "name": {
+            "type": "text",
+            "analyzer": "standard_analyzer"
+          }
+        }
+      }
+    }
+  }
+}
